@@ -3,7 +3,8 @@ Inits variables for the application
 """
 
 from flask import Flask
-from app.hindsite.extensions import db, bootstrap, login_manager, Base
+from app.hindsite.extensions import bootstrap, login_manager
+from app.hindsite.extensions import db
 
 
 def create_app():
@@ -13,16 +14,12 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object("config.Config")
-    db.Model = Base
 
     bootstrap.init_app(app)
     login_manager.init_app(app)
     db.init_app(app)
 
-    # TEST OPTION: WIPE DATA FROM DB.
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
+
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
     from app.hindsite.auth.auth import auth
@@ -35,8 +32,13 @@ def create_app():
     app.register_blueprint(core)
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
-    from app.hindsite.group_page.group_page import group_page
+    from app.hindsite.home.home import home
     # pylint: enable=wrong-import-position,import-outside-toplevel
-    app.register_blueprint(group_page)
+    app.register_blueprint(home)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.group.group import group
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(group)
 
     return app

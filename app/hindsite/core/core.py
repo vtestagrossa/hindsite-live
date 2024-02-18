@@ -11,16 +11,6 @@ core = Blueprint('core',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
-@core.route('/')
-@login_required
-def index():
-    """
-        Loads index.html, sets the title
-    """
-    title = 'Index'
-    return render_template('index.html', title=title)
-
-
 @core.route('/retrospective')
 @login_required
 def retrospective():
