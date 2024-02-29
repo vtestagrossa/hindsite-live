@@ -21,6 +21,15 @@ def get_user(email: str):
         return db.session.execute(stmt).first()[0]
     return None
 
+def get_all_users():
+    """
+    Gets all user records.
+
+    :returns: **list** A list of all user records
+    """
+    stmt = select(User)
+    users = db.session.execute(stmt).all()
+    return users
 
 def get_groups(email: str):
     """
@@ -35,6 +44,7 @@ def get_groups(email: str):
         if membership.invitation_accepted is True:
             groups.append(membership.group)
     return groups
+
 
 def get_group(group_id: int):
     """
