@@ -16,7 +16,9 @@ database_uri = ("mysql+pymysql://"
 
 class Config:  # pylint: disable=too-few-public-methods
     """
-        Base configuration class. Contains default config settings
+        Base configuration class. Contains default config settings. Use
+        os.getenv to have persistent sessions between restarts. Use 
+        secrets.token_hex(32) if you want to reset the session every time.
     """
     FLASK_ENV = 'development'
     DEBUG = False
