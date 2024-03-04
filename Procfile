@@ -1,1 +1,1 @@
-web: gunicorn --timeout 600 --chdir app wsgi:app
+web: gunicorn --workers=4 --chdir app wsgi:app
