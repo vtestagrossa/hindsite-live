@@ -1,1 +1,1 @@
-web: gunicorn --workers=4 --chdir app wsgi:app
+web: gunicorn --workers=16 --chdir app wsgi:app
